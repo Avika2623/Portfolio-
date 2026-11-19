@@ -107,7 +107,7 @@ const PORTFOLIO_DATA = {
    2. APPLICATION STATE
    ========================================================================== */
 const state = {
-  currentScreen: "explore", // Starts directly in the interactive portfolio world!
+  currentScreen: "title", // Opens from the Title Screen by default
   currentLocationIndex: 0,
   isJumping: false,
   soundEnabled: false,
@@ -935,14 +935,16 @@ function showExploreScreen(playSound = true) {
   }, 50);
 }
 
-function showTitleScreen() {
+function showTitleScreen(playClick = false) {
   const titleScreen = document.getElementById("title-screen");
   const exploreScreen = document.getElementById("explore-screen");
 
-  try {
-    soundFX.playClick();
-  } catch (e) {
-    console.warn("Sound error:", e);
+  if (playClick) {
+    try {
+      soundFX.playClick();
+    } catch (e) {
+      console.warn("Sound error:", e);
+    }
   }
 
   if (exploreScreen) {
@@ -1282,11 +1284,11 @@ function initApp() {
   // 5. Initialize All Event Listeners
   initEventListeners();
 
-  // 6. Start DIRECTLY from the interactive portfolio world!
-  if (window.location.hash === "#menu") {
-    showTitleScreen();
-  } else {
+  // 6. Open from the Title Screen by default (or directly to explore if #explore is in URL)
+  if (window.location.hash === "#explore") {
     showExploreScreen(false);
+  } else {
+    showTitleScreen();
   }
 }
 

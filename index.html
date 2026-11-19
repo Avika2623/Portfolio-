@@ -18,10 +18,10 @@
   <canvas id="ambient-particles" aria-hidden="true"></canvas>
 
   <!-- =========================================================================
-       1. TITLE SCREEN (Accessible via "Title Menu" button in HUD)
+       1. TITLE SCREEN
        Recreates the feel of the block-building game main menu
        ========================================================================= -->
-  <section id="title-screen" class="screen" aria-label="Portfolio Main Menu" hidden style="display: none;">
+  <section id="title-screen" class="screen active" aria-label="Portfolio Main Menu">
     <!-- Panorama background with blurred blocky landscape & floating clouds -->
     <div class="panorama-bg" aria-hidden="true">
       <div class="sky-gradient"></div>
@@ -150,14 +150,14 @@
 
   <!-- =========================================================================
        2. EXPLORE SCREEN (PORTFOLIO WORLD)
-       Starts directly here! Interactive blocky environment & character
+       Opened via "Start Journey" button or keyboard navigation
        ========================================================================= -->
-  <main id="explore-screen" class="screen active" aria-label="Explore Portfolio World" style="display: flex;">
+  <main id="explore-screen" class="screen" aria-label="Explore Portfolio World" hidden style="display: none;">
     
     <!-- Top HUD Navigation Bar -->
     <header class="hud-top">
       <div class="hud-left">
-        <button id="btn-return-menu" class="game-btn game-btn-hud" type="button" onclick="showTitleScreen()" title="Return to Title Screen (Esc)">
+        <button id="btn-return-menu" class="game-btn game-btn-hud" type="button" onclick="showTitleScreen(true)" title="Return to Title Screen (Esc)">
           <span class="btn-icon">⬅</span>
           <span class="btn-text">Title Menu</span>
         </button>
