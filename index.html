@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avika Kalraiya — Interactive Game Portfolio</title>
+  <meta name="description" content="A pixelated, block-building game-inspired interactive portfolio journey for Avika Kalraiya.">
+
+  <!-- Google Fonts: Pixel headings & ultra-clean readable body font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Canvas for dynamic ambient particles (stars, dust, embers, leaves) -->
+  <canvas id="ambient-particles" aria-hidden="true"></canvas>
+
+  <!-- =========================================================================
+       1. TITLE SCREEN (Accessible via "Title Menu" button in HUD)
+       Recreates the feel of the block-building game main menu
+       ========================================================================= -->
+  <section id="title-screen" class="screen" aria-label="Portfolio Main Menu" hidden style="display: none;">
+    <!-- Panorama background with blurred blocky landscape & floating clouds -->
+    <div class="panorama-bg" aria-hidden="true">
+      <div class="sky-gradient"></div>
+      <div class="clouds-layer"></div>
+      <div class="distant-mountains"></div>
+      <div class="forest-silhouette"></div>
+      <div class="vignette-overlay"></div>
+    </div>
+
+    <div class="title-container">
+      <!-- 3D Stone-Beveled Game Logo with Individually Spaced Letters -->
+      <div class="logo-wrapper">
+        <h1 class="game-logo" aria-label="PORTFOLIO">
+          <span class="logo-char char-p" aria-hidden="true">P</span>
+          <span class="logo-char char-o1" aria-hidden="true">O</span>
+          <span class="logo-char char-r" aria-hidden="true">R</span>
+          <span class="logo-char char-t" aria-hidden="true">T</span>
+          <span class="logo-char char-f" aria-hidden="true">F</span>
+          <span class="logo-char char-o2" aria-hidden="true">O</span>
+          <span class="logo-char char-l" aria-hidden="true">L</span>
+          <span class="logo-char char-i" aria-hidden="true">I</span>
+          <span class="logo-char char-o3" aria-hidden="true">O</span>
+        </h1>
+        <!-- Animated Minecraft-style yellow splash text -->
+        <div id="splash-text" class="splash-badge">Press Start to Explore!</div>
+      </div>
+
+      <p class="creator-tagline">
+        Welcome to the interactive world of <strong class="highlight-name">Avika Kalraiya</strong>
+      </p>
+
+      <!-- Main Menu Buttons -->
+      <nav class="menu-nav" aria-label="Main Menu Navigation">
+        <button id="btn-start" class="game-btn game-btn-primary" type="button" onclick="showExploreScreen()" autofocus>
+          <span class="btn-icon">▶</span>
+          <span class="btn-text">Start Journey</span>
+        </button>
+
+        <div class="menu-row">
+          <button id="btn-options" class="game-btn game-btn-secondary" type="button" onclick="openModal('modal-settings')" aria-haspopup="dialog">
+            <span class="btn-icon">⚙</span>
+            <span class="btn-text">Settings</span>
+          </button>
+          <button id="btn-about" class="game-btn game-btn-secondary" type="button" onclick="openModal('modal-about')" aria-haspopup="dialog">
+            <span class="btn-icon">ℹ</span>
+            <span class="btn-text">About</span>
+          </button>
+        </div>
+
+        <div class="menu-row quick-toggles">
+          <button id="btn-title-sound" class="game-btn game-btn-tiny" type="button" onclick="toggleSound()" aria-label="Toggle sound effects">
+            <span class="sound-icon">🔇</span> Sound: <span class="sound-status">Off</span>
+          </button>
+          <button id="btn-title-motion" class="game-btn game-btn-tiny" type="button" onclick="toggleReducedMotion()" aria-label="Toggle motion reduction">
+            <span class="motion-icon">⚡</span> Motion: <span class="motion-status">Normal</span>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Subtitle & footer info -->
+      <footer class="title-footer">
+        <p>Interactive Portfolio Edition &bull; HTML5 &bull; CSS3 &bull; Vanilla JS</p>
+        <p class="keyboard-hint">Tip: Use Arrow Keys or A / D to navigate world</p>
+      </footer>
+    </div>
+
+    <!-- Decorative block mobs/elements inspired by reference screenshot -->
+    <div class="title-props" aria-hidden="true">
+      <div class="title-mobs-left">
+        <!-- Pixel Green Creeper SVG -->
+        <svg class="title-mob-creeper" viewBox="0 0 60 100" width="70" height="116" shape-rendering="crispEdges">
+          <!-- Head -->
+          <rect x="10" y="8" width="40" height="40" fill="#4caf50" />
+          <rect x="14" y="12" width="8" height="8" fill="#388e3c" />
+          <rect x="38" y="12" width="8" height="8" fill="#388e3c" />
+          <rect x="22" y="24" width="8" height="8" fill="#2e7d32" />
+          <!-- Creeper Face Expression -->
+          <rect x="18" y="20" width="8" height="8" fill="#1b5e20" />
+          <rect x="34" y="20" width="8" height="8" fill="#1b5e20" />
+          <rect x="26" y="28" width="8" height="12" fill="#1b5e20" />
+          <rect x="22" y="36" width="16" height="8" fill="#1b5e20" />
+          <rect x="18" y="40" width="4" height="8" fill="#1b5e20" />
+          <rect x="38" y="40" width="4" height="8" fill="#1b5e20" />
+          <!-- Body -->
+          <rect x="18" y="48" width="24" height="32" fill="#43a047" />
+          <rect x="22" y="52" width="6" height="6" fill="#388e3c" />
+          <rect x="32" y="62" width="6" height="6" fill="#2e7d32" />
+          <!-- 4 Block Feet -->
+          <rect x="12" y="80" width="16" height="18" fill="#2e7d32" />
+          <rect x="32" y="80" width="16" height="18" fill="#2e7d32" />
+        </svg>
+      </div>
+
+      <div class="title-mobs-right">
+        <!-- Pixel Alex Character SVG with Iron Sword -->
+        <svg class="title-mob-alex" viewBox="0 0 70 110" width="85" height="130" shape-rendering="crispEdges">
+          <!-- Hair & Head -->
+          <rect x="18" y="10" width="34" height="34" fill="#fcd4b4" />
+          <rect x="16" y="6" width="38" height="10" fill="#e58e37" />
+          <rect x="16" y="14" width="8" height="12" fill="#e58e37" />
+          <rect x="42" y="14" width="12" height="24" fill="#e58e37" />
+          <rect x="22" y="24" width="4" height="4" fill="#2e7d32" />
+          <rect x="34" y="24" width="4" height="4" fill="#2e7d32" />
+          <!-- Tunic -->
+          <rect x="16" y="44" width="38" height="36" fill="#5c946e" />
+          <rect x="16" y="70" width="38" height="6" fill="#261d18" />
+          <!-- Arms -->
+          <rect x="6" y="44" width="10" height="28" fill="#fcd4b4" />
+          <rect x="6" y="44" width="10" height="12" fill="#5c946e" />
+          <rect x="54" y="44" width="10" height="24" fill="#fcd4b4" />
+          <rect x="54" y="44" width="10" height="12" fill="#5c946e" />
+          <!-- Legs & Boots -->
+          <rect x="20" y="80" width="14" height="26" fill="#53392a" />
+          <rect x="20" y="96" width="14" height="12" fill="#4a5260" />
+          <rect x="36" y="80" width="14" height="26" fill="#53392a" />
+          <rect x="36" y="96" width="14" height="12" fill="#4a5260" />
+          <!-- Sword -->
+          <rect x="58" y="24" width="4" height="24" fill="#b0bec5" stroke="#78909c" stroke-width="1" />
+          <rect x="56" y="46" width="8" height="3" fill="#cfd8dc" />
+          <rect x="59" y="49" width="2" height="6" fill="#6d4c41" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================================================================
+       2. EXPLORE SCREEN (PORTFOLIO WORLD)
+       Starts directly here! Interactive blocky environment & character
+       ========================================================================= -->
+  <main id="explore-screen" class="screen active" aria-label="Explore Portfolio World" style="display: flex;">
+    
+    <!-- Top HUD Navigation Bar -->
+    <header class="hud-top">
+      <div class="hud-left">
+        <button id="btn-return-menu" class="game-btn game-btn-hud" type="button" onclick="showTitleScreen()" title="Return to Title Screen (Esc)">
+          <span class="btn-icon">⬅</span>
+          <span class="btn-text">Title Menu</span>
+        </button>
+        <span class="hud-badge player-tag">
+          <span class="player-indicator-icon">👤</span> Avika Kalraiya
+        </span>
+      </div>
+
+      <!-- Center: Location Progress & Hearts -->
+      <div class="hud-center">
+        <div class="hud-location-counter" id="location-progress" aria-live="polite">
+          Location <span id="current-loc-num">1</span> of <span id="total-loc-num">4</span>
+        </div>
+        <div class="hearts-bar" aria-label="Health 10 of 10 hearts" title="10/10 Hearts">
+          <span class="pixel-heart">❤</span>
+          <span class="pixel-heart">❤</span>
+          <span class="pixel-heart">❤</span>
+          <span class="pixel-heart">❤</span>
+          <span class="pixel-heart">❤</span>
+          <span class="pixel-heart">❤</span>
+          <span class="pixel-heart">❤</span>
+          <span class="pixel-heart">❤</span>
+          <span class="pixel-heart">❤</span>
+          <span class="pixel-heart">❤</span>
+        </div>
+      </div>
+
+      <!-- Right: Toggles & Help -->
+      <div class="hud-right">
+        <button id="btn-hud-sound" class="game-btn game-btn-icon" type="button" onclick="toggleSound()" title="Toggle Sound (M)" aria-label="Toggle sound">
+          🔇
+        </button>
+        <button id="btn-hud-settings" class="game-btn game-btn-icon" type="button" onclick="openModal('modal-settings')" title="Settings" aria-label="Open settings">
+          ⚙
+        </button>
+      </div>
+    </header>
+
+    <!-- World Stage: Parallax scenic environment & character -->
+    <section class="world-stage" id="world-stage" aria-label="Interactive scenery view">
+      
+      <!-- Backdrop environment layers (swapped/animated via CSS classes) -->
+      <div class="environment-backdrop loc-mine" id="env-backdrop">
+        <!-- Sky & celestial element -->
+        <div class="sky-layer" id="env-sky">
+          <div class="celestial-body" id="celestial-body"></div>
+        </div>
+
+        <!-- Far background mountains/cavern arches -->
+        <div class="mountain-layer" id="env-mountains"></div>
+
+        <!-- Midground scenery (trees, cave crystals, temple pillars, clouds) -->
+        <div class="midground-layer" id="env-midground"></div>
+
+        <!-- Foreground terrain (mine rails, summit ledge, grassy path, tower balcony) -->
+        <div class="foreground-terrain" id="env-foreground">
+          <div class="terrain-surface"></div>
+          <div class="terrain-subsoil"></div>
+        </div>
+
+        <!-- Interactive thematic environmental props -->
+        <div class="env-props-container" id="env-props" aria-hidden="true"></div>
+      </div>
+
+      <!-- Character Stage Area -->
+      <div class="character-anchor" id="character-anchor">
+        <div class="character-shadow" id="char-shadow" aria-hidden="true"></div>
+        
+        <!-- Player Character (Alex-inspired pixel figure) -->
+        <div class="player-character" id="player-character" onclick="triggerJumpAction()" role="img" aria-label="Pixel character exploring the world">
+          <!-- The SVG block character with dynamic interchangeable arm/item poses -->
+          <div class="char-svg-wrapper" id="char-svg-container"></div>
+        </div>
+
+        <!-- Character floating speech/reaction bubble -->
+        <div class="char-reaction" id="char-reaction" aria-hidden="true">Ready!</div>
+      </div>
+
+      <!-- Visible Left / Right Navigation Controls (Prominent, game-styled, touch-friendly) -->
+      <div class="nav-controls-overlay">
+        <button id="btn-prev-loc" class="game-nav-btn btn-nav-left" type="button" onclick="goToLocation(state.currentLocationIndex - 1)" aria-label="Previous location (Left Arrow or A)">
+          <span class="nav-arrow">◀</span>
+          <span class="nav-kbd-hint">A / ◀</span>
+        </button>
+        <button id="btn-next-loc" class="game-nav-btn btn-nav-right" type="button" onclick="goToLocation(state.currentLocationIndex + 1)" aria-label="Next location (Right Arrow or D)">
+          <span class="nav-arrow">▶</span>
+          <span class="nav-kbd-hint">D / ▶</span>
+        </button>
+      </div>
+
+      <!-- Ground Action Tip -->
+      <div class="ground-prompt" aria-hidden="true">
+        <span>Press <kbd>Space</kbd> to Jump &bull; Use <kbd>A</kbd>/<kbd>D</kbd> or <kbd>←</kbd>/<kbd>→</kbd> to Travel</span>
+      </div>
+    </section>
+
+    <!-- Bottom Section: Game-Style Dialog Panel & Hotbar -->
+    <section class="dialog-and-hud-container" aria-label="Portfolio Content Panel">
+      
+      <!-- Readable Game-Inspired Skill Card Panel (styled like game dialog screenshot) -->
+      <article class="game-dialog-panel" id="skill-dialog-panel" aria-live="polite">
+        <!-- Banner Header Plaque -->
+        <div class="dialog-header-banner">
+          <div class="dialog-banner-gem gem-left">✦</div>
+          <div class="dialog-banner-titles">
+            <span class="dialog-location-badge" id="panel-location-badge">AREA 01</span>
+            <h2 class="dialog-title" id="panel-title">Innovation Mine</h2>
+          </div>
+          <div class="dialog-banner-gem gem-right">✦</div>
+        </div>
+
+        <!-- Subtitle & Focus tags -->
+        <div class="dialog-subhead">
+          <span class="dialog-subtitle" id="panel-subtitle">SIH & Hacktoberfest</span>
+          <div class="tag-pills" id="panel-tags">
+            <span class="tag-pill">Hackathons</span>
+            <span class="tag-pill">Open Source</span>
+            <span class="tag-pill">Problem Solving</span>
+          </div>
+        </div>
+
+        <!-- High-readability portfolio text body -->
+        <div class="dialog-content-body">
+          <p class="dialog-text" id="panel-body">
+            I’ve participated in SIH and Hacktoberfest, exploring problem-solving through hackathons and open-source collaboration. I enjoy turning ideas into practical solutions, learning from a team, and improving through hands-on challenges.
+          </p>
+        </div>
+
+        <!-- Dialog Footer with location quick controls -->
+        <div class="dialog-footer">
+          <div class="dialog-footer-left">
+            <span class="status-indicator">● Active Realm</span>
+          </div>
+          <div class="dialog-footer-nav">
+            <button id="btn-panel-prev" class="game-btn game-btn-compact" type="button" onclick="goToLocation(state.currentLocationIndex - 1)">
+              ◀ Previous
+            </button>
+            <span class="panel-step-indicator" id="panel-step-indicator">1 / 4</span>
+            <button id="btn-panel-next" class="game-btn game-btn-compact" type="button" onclick="goToLocation(state.currentLocationIndex + 1)">
+              Next ▶
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Bottom Hotbar (Quick navigation to all 4 locations like game inventory hotbar) -->
+      <nav class="game-hotbar" aria-label="Quick Location Inventory Hotbar">
+        <div class="hotbar-label">INVENTORY / QUICK TRAVEL</div>
+        <div class="hotbar-slots" role="tablist">
+          <button class="hotbar-slot active" role="tab" aria-selected="true" data-loc-index="0" onclick="goToLocation(0, true)" title="Slot 1: Innovation Mine [1]">
+            <span class="slot-num">1</span>
+            <span class="slot-icon">⛏</span>
+            <span class="slot-name">Mine</span>
+          </button>
+          <button class="hotbar-slot" role="tab" aria-selected="false" data-loc-index="1" onclick="goToLocation(1, true)" title="Slot 2: Quantum Summit [2]">
+            <span class="slot-num">2</span>
+            <span class="slot-icon">⛰</span>
+            <span class="slot-name">Summit</span>
+          </button>
+          <button class="hotbar-slot" role="tab" aria-selected="false" data-loc-index="2" onclick="goToLocation(2, true)" title="Slot 3: Explorer's Trail [3]">
+            <span class="slot-num">3</span>
+            <span class="slot-icon">🌲</span>
+            <span class="slot-name">Trail</span>
+          </button>
+          <button class="hotbar-slot" role="tab" aria-selected="false" data-loc-index="3" onclick="goToLocation(3, true)" title="Slot 4: Creative Tower [4]">
+            <span class="slot-num">4</span>
+            <span class="slot-icon">🏰</span>
+            <span class="slot-name">Tower</span>
+          </button>
+        </div>
+      </nav>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================================================
+       3. MODAL: SETTINGS & ACCESSIBILITY
+       ========================================================================= -->
+  <div id="modal-settings" class="game-modal" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title" hidden>
+    <div class="modal-backdrop" id="modal-settings-backdrop" onclick="closeModal('modal-settings')"></div>
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="settings-modal-title" class="modal-title">Settings & Accessibility</h2>
+        <button class="modal-close-btn" id="btn-close-settings" type="button" onclick="closeModal('modal-settings')" aria-label="Close settings">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-label">8-Bit Sound Effects</span>
+            <span class="setting-desc">Synthesized retro audio for jumps, clicks, and page transitions</span>
+          </div>
+          <button id="toggle-sound-btn" class="game-btn game-btn-compact" type="button">
+            Sound: <span id="sound-val-text">Off</span>
+          </button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-label">Reduced Motion</span>
+            <span class="setting-desc">Replaces character jump arc and parallax slide with gentle pose changes</span>
+          </div>
+          <button id="toggle-motion-btn" class="game-btn game-btn-compact" type="button">
+            Motion: <span id="motion-val-text">Normal</span>
+          </button>
+        </div>
+
+        <div class="setting-item">
+          <div class="setting-info">
+            <span class="setting-label">Reading Font Scale</span>
+            <span class="setting-desc">Increase dialogue text size for easier reading</span>
+          </div>
+          <div class="font-scale-controls">
+            <button id="btn-font-smaller" class="game-btn game-btn-tiny" type="button" aria-label="Smaller font">A-</button>
+            <span id="font-scale-display">100%</span>
+            <button id="btn-font-larger" class="game-btn game-btn-tiny" type="button" aria-label="Larger font">A+</button>
+          </div>
+        </div>
+
+        <div class="controls-guide">
+          <h3>Keyboard Controls</h3>
+          <ul class="guide-list">
+            <li><kbd>←</kbd> / <kbd>A</kbd> : Previous Location</li>
+            <li><kbd>→</kbd> / <kbd>D</kbd> : Next Location</li>
+            <li><kbd>1</kbd> - <kbd>4</kbd> : Jump Directly to Location</li>
+            <li><kbd>Space</kbd> : Character Jump / Celebrate</li>
+            <li><kbd>Esc</kbd> : Return to Main Menu / Close Dialog</li>
+            <li><kbd>M</kbd> : Toggle Sound Mute</li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button id="btn-settings-done" class="game-btn game-btn-primary" type="button" onclick="closeModal('modal-settings')">Done</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       4. MODAL: ABOUT / CONTACT
+       ========================================================================= -->
+  <div id="modal-about" class="game-modal" role="dialog" aria-modal="true" aria-labelledby="about-modal-title" hidden>
+    <div class="modal-backdrop" id="modal-about-backdrop" onclick="closeModal('modal-about')"></div>
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="about-modal-title" class="modal-title">About Avika Kalraiya</h2>
+        <button class="modal-close-btn" id="btn-close-about" type="button" onclick="closeModal('modal-about')" aria-label="Close about">&times;</button>
+      </div>
+      <div class="modal-body about-body">
+        <p>
+          Welcome to my personal interactive portfolio! Built from scratch with <strong>semantic HTML, CSS, and vanilla JavaScript</strong>, this experience turns my journey, skills, and certifications into a retro block-building world to explore.
+        </p>
+
+        <!-- Certifications & Key Qualifications -->
+        <div class="certifications-section">
+          <h3 class="section-title">📜 Certifications & Honors</h3>
+          <div class="cert-grid">
+            <div class="cert-card">
+              <span class="cert-badge">Certified</span>
+              <strong>Prompting Essentials Certification</strong>
+              <p>Specialized training in prompt engineering, leveraging generative AI tools for structured ideation, creative exploration, and problem-solving.</p>
+            </div>
+            <div class="cert-card">
+              <span class="cert-badge gold">Gold Award</span>
+              <strong>World Quant — Gold</strong>
+              <p>Demonstrated excellence in quantitative problem-solving, mathematical intuition, logic, and analytical challenge resolution.</p>
+            </div>
+            <div class="cert-card">
+              <span class="cert-badge green">Hackathons</span>
+              <strong>SIH & Hacktoberfest</strong>
+              <p>Hands-on engineering through Smart India Hackathon and global open-source contribution during Hacktoberfest.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comprehensive Skillset Grid -->
+        <div class="skills-inventory-section">
+          <h3 class="section-title">⚔ Skills & Competencies</h3>
+          <div class="skill-tags-cloud">
+            <span class="skill-chip cert-chip">★ Prompting Essentials Certified</span>
+            <span class="skill-chip">AI Prompt Engineering</span>
+            <span class="skill-chip">Generative AI Workflows</span>
+            <span class="skill-chip">Quantitative Analysis</span>
+            <span class="skill-chip">Analytical Thinking</span>
+            <span class="skill-chip">Problem Solving</span>
+            <span class="skill-chip">Open Source Collaboration</span>
+            <span class="skill-chip">Hackathons (SIH)</span>
+            <span class="skill-chip">Creative Painting</span>
+            <span class="skill-chip">Trekking & Exploration</span>
+          </div>
+        </div>
+
+        <div class="about-highlights">
+          <div class="highlight-card">
+            <span class="hl-icon">⛏</span>
+            <strong>Innovation Mine</strong>
+            <p>Smart India Hackathon & Hacktoberfest open-source experiences.</p>
+          </div>
+          <div class="highlight-card">
+            <span class="hl-icon">⛰</span>
+            <strong>Quantum Summit</strong>
+            <p>Gold in World Quant analytical problem solving.</p>
+          </div>
+          <div class="highlight-card">
+            <span class="hl-icon">🌲</span>
+            <strong>Explorer's Trail</strong>
+            <p>Outdoor trekking and creative painting.</p>
+          </div>
+          <div class="highlight-card">
+            <span class="hl-icon">🏰</span>
+            <strong>Creative Tower</strong>
+            <p>Prompting Essentials certification, AI prompting & creative workflows.</p>
+          </div>
+        </div>
+
+        <div class="contact-box">
+          <h3>Get In Touch</h3>
+          <p>Interested in collaborating, hackathons, or discussing new ideas?</p>
+          <div class="contact-links">
+            <a href="mailto:contact@example.com" class="game-btn game-btn-compact" target="_blank" rel="noopener">
+              ✉ Email Me
+            </a>
+            <a href="https://github.com" class="game-btn game-btn-compact" target="_blank" rel="noopener">
+              💻 GitHub
+            </a>
+            <a href="https://linkedin.com" class="game-btn game-btn-compact" target="_blank" rel="noopener">
+              🔗 LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-about-done" class="game-btn game-btn-primary" type="button" onclick="closeModal('modal-about')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
