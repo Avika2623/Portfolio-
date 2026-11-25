@@ -1,6 +1,6 @@
 # 🎮 Avika Kalraiya — Interactive Game Portfolio
 
-A responsive, pixelated personal portfolio website inspired by retro block-building sandbox games. Built using pure **HTML5, CSS3, and Vanilla JavaScript** with zero external dependencies.
+A responsive, pixelated personal portfolio website inspired by retro block-building sandbox games. Built using pure **HTML5, CSS3, and  JavaScript** with zero external dependencies.
 
 ---
 
