@@ -839,13 +839,13 @@ function renderEnvironmentProps(location) {
 
 /* ==========================================================================
    6. AMBIENT PARTICLES SYSTEM (Canvas)
-   Draws embers in the mine, snow at summit, leaves on trail, runes at tower
+   Draws slowly drifting pixelated stars across the scene behind character and panels
    ========================================================================== */
 class AmbientParticles {
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
-    this.particles = [];
+    this.stars = [];
     this.animationFrame = null;
     this.resize();
     window.addEventListener("resize", () => this.resize());
@@ -854,70 +854,132 @@ class AmbientParticles {
   resize() {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.initParticles();
+    this.initStars();
   }
 
-  initParticles() {
-    this.particles = [];
-    const count = window.innerWidth < 768 ? 25 : 50;
+  initStars() {
+    this.stars = [];
+    // Responsive density: 55 stars on desktop, 28 on mobile
+    const count = window.innerWidth < 768 ? 28 : 55;
     for (let i = 0; i < count; i++) {
-      this.particles.push(this.createParticle());
+      this.stars.push(this.createStar());
     }
   }
 
-  createParticle() {
+  createStar(atRightEdge = false) {
+    const isMobile = window.innerWidth < 768;
+    const isCross = Math.random() < 0.16; // 16% subtle 4-pointed pixel stars
+    const depth = 0.35 + Math.random() * 0.65; // Parallax depth layer
+
+    // Pixel-crisp dimensions
+    let size = 2;
+    if (depth < 0.55) {
+      size = 1;
+    } else if (depth > 0.88 && !isMobile) {
+      size = 3;
+    }
+
+    // Subtly varied authentic starlight colors
+    const colorRoll = Math.random();
+    let color = "#ffffff";
+    if (colorRoll < 0.3) {
+      color = "#ffffff"; // Crisp white
+    } else if (colorRoll < 0.55) {
+      color = "#fef3c7"; // Warm pale starlight
+    } else if (colorRoll < 0.8) {
+      color = "#e0f2fe"; // Soft icy cosmic tint
+    } else {
+      color = "#e2e8f0"; // Muted starlight
+    }
+
+    const startX = atRightEdge
+      ? this.canvas.width + 5 + Math.random() * 20
+      : Math.random() * (this.canvas.width + 20);
+
+    const baseY = Math.random() * this.canvas.height;
+
     return {
-      x: Math.random() * this.canvas.width,
-      y: Math.random() * this.canvas.height,
-      size: Math.floor(Math.random() * 4) + 2,
-      vx: (Math.random() - 0.5) * 0.8,
-      vy: Math.random() * 0.8 + 0.3,
-      alpha: Math.random() * 0.7 + 0.3,
-      color: "#ffffff"
+      x: startX,
+      y: baseY,
+      baseY: baseY,
+      size: size,
+      isCross: isCross,
+      depth: depth,
+      // Slow subtle cosmic horizontal drift (right to left: ~10-15 px/sec)
+      vx: -(0.10 + depth * 0.15),
+      waveAmp: 0.2 + Math.random() * 0.4,
+      waveFreq: 0.006 + Math.random() * 0.012,
+      waveAngle: Math.random() * Math.PI * 2,
+      twinklePhase: Math.random() * Math.PI * 2,
+      twinkleSpeed: 0.012 + Math.random() * 0.02,
+      minAlpha: 0.30 + Math.random() * 0.18,
+      maxAlpha: 0.78 + Math.random() * 0.22,
+      color: color
     };
   }
 
   update() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    // If reduced motion is active, render stars statically in place
     if (state.reducedMotion) {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.stars.forEach(s => {
+        this.ctx.fillStyle = s.color;
+        this.ctx.globalAlpha = 0.65;
+        const ix = Math.floor(s.x);
+        const iy = Math.floor(s.y);
+        if (s.isCross) {
+          this.ctx.fillRect(ix, iy, 2, 2);
+          this.ctx.fillRect(ix, iy - 1, 2, 1);
+          this.ctx.fillRect(ix, iy + 2, 2, 1);
+          this.ctx.fillRect(ix - 1, iy, 1, 2);
+          this.ctx.fillRect(ix + 2, iy, 1, 2);
+        } else {
+          this.ctx.fillRect(ix, iy, s.size, s.size);
+        }
+      });
+      this.ctx.globalAlpha = 1.0;
       return;
     }
 
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    const locId = PORTFOLIO_DATA.locations[state.currentLocationIndex]?.id || "mine";
+    // Normal motion: slow subtle drift across the background
+    this.stars.forEach(s => {
+      // 1. Horizontal drift
+      s.x += s.vx;
 
-    this.particles.forEach(p => {
-      // Color and movement dynamics per location
-      if (locId === "mine") {
-        // Red/Orange/Yellow rising embers
-        p.color = Math.random() > 0.5 ? "#ff9800" : "#ff5722";
-        p.y -= p.vy * 0.8;
-        p.x += Math.sin(p.y * 0.05) * 0.4;
-        if (p.y < 0) { p.y = this.canvas.height; p.x = Math.random() * this.canvas.width; }
-      } else if (locId === "summit") {
-        // Falling crisp snow and gold specks
-        p.color = Math.random() > 0.3 ? "#ffffff" : "#ffd700";
-        p.y += p.vy * 1.2;
-        p.x += Math.cos(p.y * 0.02) * 0.6;
-        if (p.y > this.canvas.height) { p.y = 0; p.x = Math.random() * this.canvas.width; }
-      } else if (locId === "trail") {
-        // Drifting green leaves and sunny pollen
-        p.color = Math.random() > 0.4 ? "#81c784" : "#fff59d";
-        p.x += p.vx + 0.8;
-        p.y += Math.sin(p.x * 0.03) * 0.5;
-        if (p.x > this.canvas.width) { p.x = 0; p.y = Math.random() * this.canvas.height; }
-      } else if (locId === "tower") {
-        // Mystic purple/cyan ascending stardust
-        p.color = Math.random() > 0.5 ? "#e040fb" : "#00e5ff";
-        p.y -= p.vy * 0.6;
-        p.x += Math.sin(p.y * 0.04) * 0.8;
-        if (p.y < 0) { p.y = this.canvas.height; p.x = Math.random() * this.canvas.width; }
+      // 2. Gentle vertical micro-wave
+      s.waveAngle += s.waveFreq;
+      s.y = s.baseY + Math.sin(s.waveAngle) * s.waveAmp;
+
+      // 3. Subtle twinkle
+      s.twinklePhase += s.twinkleSpeed;
+      const alphaRange = s.maxAlpha - s.minAlpha;
+      const alpha = s.minAlpha + alphaRange * (0.5 + 0.5 * Math.sin(s.twinklePhase));
+
+      // 4. Wrap around when drifting off the left edge
+      if (s.x < -12) {
+        s.x = this.canvas.width + 10;
+        s.baseY = Math.random() * this.canvas.height;
+        s.y = s.baseY;
       }
 
-      // Draw crisp pixel block particle
-      this.ctx.fillStyle = p.color;
-      this.ctx.globalAlpha = p.alpha;
-      this.ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size);
+      // 5. Draw crisp pixel-art star with integer coordinates
+      this.ctx.fillStyle = s.color;
+      this.ctx.globalAlpha = Math.max(0.15, Math.min(1.0, alpha));
+      const ix = Math.floor(s.x);
+      const iy = Math.floor(s.y);
+
+      if (s.isCross) {
+        // Subtle 4-pointed pixel star
+        this.ctx.fillRect(ix, iy, 2, 2);
+        this.ctx.fillRect(ix, iy - 1, 2, 1);
+        this.ctx.fillRect(ix, iy + 2, 2, 1);
+        this.ctx.fillRect(ix - 1, iy, 1, 2);
+        this.ctx.fillRect(ix + 2, iy, 1, 2);
+      } else {
+        // Clean square pixel star
+        this.ctx.fillRect(ix, iy, s.size, s.size);
+      }
     });
 
     this.ctx.globalAlpha = 1.0;
@@ -1213,7 +1275,14 @@ function closeModal(modalId) {
   }
 }
 
+let lastSoundToggleTime = 0;
 function toggleSound() {
+  const now = Date.now();
+  if (now - lastSoundToggleTime < 180) {
+    return;
+  }
+  lastSoundToggleTime = now;
+
   state.soundEnabled = !state.soundEnabled;
   localStorage.setItem("portfolio_sound", state.soundEnabled ? "1" : "0");
   updateSoundUI();
@@ -1223,23 +1292,57 @@ function toggleSound() {
 }
 
 function updateSoundUI() {
+  const isEnabled = !!state.soundEnabled;
+
   const statusTexts = document.querySelectorAll(".sound-status, #sound-val-text");
   statusTexts.forEach(el => {
-    el.textContent = state.soundEnabled ? "On" : "Off";
+    el.textContent = isEnabled ? "On" : "Off";
   });
 
-  const icons = document.querySelectorAll(".sound-icon, #btn-hud-sound");
+  const icons = document.querySelectorAll(".sound-icon");
   icons.forEach(el => {
-    el.textContent = state.soundEnabled ? "🔊" : "🔇";
+    el.textContent = isEnabled ? "🔊" : "🔇";
   });
+
+  const hudBtn = document.getElementById("btn-hud-sound");
+  if (hudBtn) {
+    hudBtn.textContent = isEnabled ? "🔊" : "🔇";
+    hudBtn.setAttribute("title", isEnabled ? "Mute Sound (M)" : "Enable Sound (M)");
+    hudBtn.setAttribute("aria-label", isEnabled ? "Mute sound effects" : "Enable sound effects");
+  }
+
+  const titleBtn = document.getElementById("btn-title-sound");
+  if (titleBtn) {
+    titleBtn.setAttribute("aria-label", isEnabled ? "Sound enabled. Click to mute" : "Sound muted. Click to enable");
+    titleBtn.setAttribute("title", isEnabled ? "Sound: On" : "Sound: Off");
+    if (isEnabled) {
+      titleBtn.classList.add("sound-active");
+    } else {
+      titleBtn.classList.remove("sound-active");
+    }
+  }
+
+  const toggleSoundBtn = document.getElementById("toggle-sound-btn");
+  if (toggleSoundBtn) {
+    toggleSoundBtn.setAttribute("aria-pressed", isEnabled ? "true" : "false");
+  }
 }
 
+let lastMotionToggleTime = 0;
 function toggleReducedMotion() {
+  const now = Date.now();
+  if (now - lastMotionToggleTime < 180) {
+    return;
+  }
+  lastMotionToggleTime = now;
+
   state.reducedMotion = !state.reducedMotion;
   document.body.classList.toggle("reduced-motion-active", state.reducedMotion);
   localStorage.setItem("portfolio_motion", state.reducedMotion ? "reduced" : "normal");
   updateMotionUI();
-  soundFX.playClick();
+  if (state.soundEnabled) {
+    soundFX.playClick();
+  }
 }
 
 function updateMotionUI() {
@@ -1254,54 +1357,17 @@ function changeFontScale(delta) {
   document.documentElement.style.setProperty("--reading-font-scale", state.fontScale / 100);
   const display = document.getElementById("font-scale-display");
   if (display) display.textContent = `${state.fontScale}%`;
-  soundFX.playClick();
+  if (state.soundEnabled) {
+    soundFX.playClick();
+  }
 }
 
 /* ==========================================================================
    10. EVENT LISTENERS SETUP
    ========================================================================== */
 function initEventListeners() {
-  // --- Title Screen Buttons ---
-  const btnStart = document.getElementById("btn-start");
-  if (btnStart) {
-    btnStart.addEventListener("click", showExploreScreen);
-  }
-
-  const btnOptions = document.getElementById("btn-options");
-  if (btnOptions) {
-    btnOptions.addEventListener("click", () => openModal("modal-settings"));
-  }
-
-  const btnAbout = document.getElementById("btn-about");
-  if (btnAbout) {
-    btnAbout.addEventListener("click", () => openModal("modal-about"));
-  }
-
-  const btnTitleSound = document.getElementById("btn-title-sound");
-  if (btnTitleSound) {
-    btnTitleSound.addEventListener("click", toggleSound);
-  }
-
-  const btnTitleMotion = document.getElementById("btn-title-motion");
-  if (btnTitleMotion) {
-    btnTitleMotion.addEventListener("click", toggleReducedMotion);
-  }
-
-  // --- HUD Navigation & Toggles ---
-  const btnReturnMenu = document.getElementById("btn-return-menu");
-  if (btnReturnMenu) {
-    btnReturnMenu.addEventListener("click", showTitleScreen);
-  }
-
-  const btnHudSound = document.getElementById("btn-hud-sound");
-  if (btnHudSound) {
-    btnHudSound.addEventListener("click", toggleSound);
-  }
-
-  const btnHudSettings = document.getElementById("btn-hud-settings");
-  if (btnHudSettings) {
-    btnHudSettings.addEventListener("click", () => openModal("modal-settings"));
-  }
+  // Elements with inline onclick in HTML do not require duplicate listeners.
+  // We keep listeners for modal internal controls, arrow buttons, keyboard, touch.
 
   // --- World Stage Arrow Controls ---
   const btnPrevLoc = document.getElementById("btn-prev-loc");
@@ -1339,23 +1405,6 @@ function initEventListeners() {
       goToLocation(targetIdx, true);
     });
   });
-
-  // --- Modals Close Buttons ---
-  const closeSettingsBtn = document.getElementById("btn-close-settings");
-  const settingsDoneBtn = document.getElementById("btn-settings-done");
-  const settingsBackdrop = document.getElementById("modal-settings-backdrop");
-
-  if (closeSettingsBtn) closeSettingsBtn.addEventListener("click", () => closeModal("modal-settings"));
-  if (settingsDoneBtn) settingsDoneBtn.addEventListener("click", () => closeModal("modal-settings"));
-  if (settingsBackdrop) settingsBackdrop.addEventListener("click", () => closeModal("modal-settings"));
-
-  const closeAboutBtn = document.getElementById("btn-close-about");
-  const aboutDoneBtn = document.getElementById("btn-about-done");
-  const aboutBackdrop = document.getElementById("modal-about-backdrop");
-
-  if (closeAboutBtn) closeAboutBtn.addEventListener("click", () => closeModal("modal-about"));
-  if (aboutDoneBtn) aboutDoneBtn.addEventListener("click", () => closeModal("modal-about"));
-  if (aboutBackdrop) aboutBackdrop.addEventListener("click", () => closeModal("modal-about"));
 
   // Settings modal controls
   const toggleSoundBtn = document.getElementById("toggle-sound-btn");
@@ -1489,9 +1538,11 @@ function initApp() {
     document.body.classList.add("reduced-motion-active");
   }
 
-  // 2. Load Sound setting from storage
+  // 2. Load Sound setting from storage (defaults to false / OFF)
   if (localStorage.getItem("portfolio_sound") === "1") {
     state.soundEnabled = true;
+  } else {
+    state.soundEnabled = false;
   }
   updateSoundUI();
   updateMotionUI();

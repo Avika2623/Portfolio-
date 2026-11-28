@@ -103,7 +103,7 @@ body {
   width: 100vw;
   height: 100vh;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Screen Switcher Container */
@@ -423,11 +423,19 @@ body {
 }
 
 .quick-toggles {
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .quick-toggles .game-btn-tiny {
   flex: 1;
+  min-height: 42px;
+  padding: 10px 14px;
+  font-family: var(--font-pixel);
+  font-size: clamp(0.55rem, 1.25vw, 0.65rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .title-footer {
