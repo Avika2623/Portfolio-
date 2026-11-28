@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APOGEE Orbital AI Console — Technical Documentation</title>
+  <style>
+    :root {
+      --bg-primary: #07090e;
+      --bg-secondary: #0d121d;
+      --bg-card: #151d2e;
+      --border-color: #223048;
+      --text-main: #c9d6ea;
+      --text-heading: #f0f6fc;
+      --text-muted: #8b9eb5;
+      --accent-cyan: #00e5ff;
+      --accent-blue: #38bdf8;
+      --accent-purple: #c084fc;
+      --accent-gold: #fbc02d;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.65;
+      padding: 40px 20px;
+    }
+
+    .doc-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 48px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
+    }
+
+    header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 28px;
+      margin-bottom: 36px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      background: rgba(0, 229, 255, 0.12);
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: var(--text-heading);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-size: 1.15rem;
+      color: var(--accent-blue);
+      margin-bottom: 18px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      background: var(--bg-primary);
+      padding: 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .meta-item a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .meta-item a:hover {
+      text-decoration: underline;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      color: var(--text-heading);
+      margin: 36px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--text-heading);
+      margin: 24px 0 10px;
+    }
+
+    p {
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      margin: 12px 0 20px 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+      color: #38bdf8;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-primary);
+      color: var(--text-heading);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .screenshot-figure {
+      margin: 24px 0;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .screenshot-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .screenshot-caption {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-card);
+    }
+
+    .highlight-card {
+      background: var(--bg-card);
+      border-left: 4px solid var(--accent-cyan);
+      padding: 16px 20px;
+      border-radius: 0 6px 6px 0;
+      margin: 20px 0;
+    }
+
+    .highlight-card strong {
+      color: var(--text-heading);
+    }
+
+    .btn-return {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: #0284c7;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #111;
+        padding: 0;
+      }
+      .doc-container {
+        border: none;
+        padding: 0;
+        box-shadow: none;
+        background: #fff;
+      }
+      h1, h2, h3, .tagline {
+        color: #000;
+      }
+      .meta-grid, .screenshot-figure, .highlight-card {
+        background: #f9f9f9;
+        border-color: #ddd;
+        color: #222;
+      }
+      th {
+        background: #eee;
+        color: #000;
+      }
+      code {
+        background: #eee;
+        color: #000;
+      }
+      .btn-return {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="doc-container">
+    <header>
+      <span class="badge-pill">🛰 APOGEE ORBITAL AI CONSOLE</span>
+      <h1>AI Chatbot — System Documentation & Architecture</h1>
+      <p class="tagline">Interactive Deep-Space LLM Parameter Playground & Streaming Inference Console</p>
+      
+      <div class="meta-grid">
+        <div class="meta-item">
+          <strong>Author & Developer</strong>
+          <span>Avika Kalraiya</span>
+        </div>
+        <div class="meta-item">
+          <strong>Institution</strong>
+          <span>NST, ADYPU Pune</span>
+        </div>
+        <div class="meta-item">
+          <strong>Live Deployment</strong>
+          <a href="https://chat-bot-avika2623.vercel.app/" target="_blank" rel="noopener noreferrer">chat-bot-avika2623.vercel.app</a>
+        </div>
+        <div class="meta-item">
+          <strong>GitHub Repository</strong>
+          <a href="https://github.com/Avika2623/Chat-Bot" target="_blank" rel="noopener noreferrer">Avika2623/Chat-Bot</a>
+        </div>
+        <div class="meta-item">
+          <strong>Foundation Model</strong>
+          <span>Groq Llama 3.3 70B Versatile</span>
+        </div>
+        <div class="meta-item">
+          <strong>Architecture Scope</strong>
+          <span>Inference Playground (No Model Training)</span>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Project Purpose & Educational Value</h2>
+      <p>
+        The <strong>APOGEE Orbital AI Console</strong> was engineered to demystify generative AI inference for beginner developers and students. While commercial chat tools hide internal parameters behind a simple prompt box, APOGEE surfaces the critical levers of language model behavior:
+      </p>
+      <ul>
+        <li><strong>Temperature Exploration:</strong> Live testing of how temperature variations alter model determinism versus creativity.</li>
+        <li><strong>Top-p Nucleus Sampling:</strong> Hands-on observation of probability cutoff boundaries in next-token prediction.</li>
+        <li><strong>Token Limit Boundaries:</strong> Visual understanding of response token allocation and truncation triggers.</li>
+        <li><strong>System Instruction Steering:</strong> Immediate comparison of behavioral personas (e.g., Balanced vs. Code Copilot vs. JSON Only).</li>
+      </ul>
+
+      <div class="screenshot-figure">
+        <img src="assets/apogee-console.jpg" alt="APOGEE Orbital Console Interface">
+        <div class="screenshot-caption">Figure 2.1: The APOGEE Orbital Console interface showing active Llama 3.3 70B Versatile telemetry, prompt suggestions, and the interactive parameter drawer.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Solution Architecture & Security Model</h2>
+      <p>
+        The application is structured into a secure, decoupled two-tier architecture:
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Technologies</th>
+              <th>Security & Operational Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Frontend Client</strong></td>
+              <td>React 19, TypeScript, Vite, Tailwind CSS</td>
+              <td>Renders the deep-space console, manages active sessions, updates parameter sliders, and parses streaming tokens in real time.</td>
+            </tr>
+            <tr>
+              <td><strong>Backend API Proxy</strong></td>
+              <td>Express 5, Node.js (<code>server/groq.ts</code>)</td>
+              <td>Protects the <code>GROQ_API_KEY</code> environment variable. All requests from the client pass through this proxy; client bundles contain zero credentials.</td>
+            </tr>
+            <tr>
+              <td><strong>Inference Engine</strong></td>
+              <td>Groq Cloud Hardware Accelerators</td>
+              <td>Executes ultra-low latency inference using <code>llama-3.3-70b-versatile</code> weights with streaming Server-Sent Events.</td>
+            </tr>
+            <tr>
+              <td><strong>Content Sanitization</strong></td>
+              <td>DOMPurify &amp; Marked</td>
+              <td>Sanitizes all generated markdown and code snippets before DOM injection to eliminate XSS risks.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Interactive Parameter Controls</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Control</th>
+              <th>Available Range</th>
+              <th>Default</th>
+              <th>Behavioral Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>System Prompt</strong></td>
+              <td>Custom Textarea + Presets</td>
+              <td>Helpful, accurate, concise</td>
+              <td>Sets the foundational rules, tone, and formatting constraints for every turn in the conversation.</td>
+            </tr>
+            <tr>
+              <td><strong>Temperature</strong></td>
+              <td><code>0.00</code> to <code>1.00</code></td>
+              <td><code>0.70</code></td>
+              <td>Controls output randomness. Values near <code>0.0</code> are deterministic and analytical; higher values encourage creative divergence.</td>
+            </tr>
+            <tr>
+              <td><strong>Max Response Tokens</strong></td>
+              <td><code>1</code> to <code>32,768</code></td>
+              <td><code>2048</code></td>
+              <td>Defines the maximum token budget for the response, illustrating response truncation mechanics.</td>
+            </tr>
+            <tr>
+              <td><strong>Top-p (Nucleus)</strong></td>
+              <td><code>0.00</code> to <code>1.00</code></td>
+              <td><code>1.00</code></td>
+              <td>Restricts candidate tokens to the cumulative probability mass, preventing low-probability vocabulary choices.</td>
+            </tr>
+            <tr>
+              <td><strong>Stream Responses</strong></td>
+              <td>Boolean Toggle (On/Off)</td>
+              <td><code>ON</code></td>
+              <td>Streams tokens progressively via Server-Sent Events, demonstrating token-by-token generation in real time.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Individual Contribution (Avika Kalraiya)</h2>
+      <div class="highlight-card">
+        <strong>Avika Kalraiya — Project Lead & Full-Stack Developer:</strong>
+        <p style="margin-top: 8px;">
+          • <strong>Full-Stack Architecture:</strong> Engineered the React 19 client and Express 5 backend proxy with secure environment variable isolation.<br>
+          • <strong>Parameter Drawer & Telemetry UI:</strong> Designed and programmed the real-time slider controls, status bar, and astronomy-inspired visual theme.<br>
+          • <strong>Streaming Integration:</strong> Configured Server-Sent Events (SSE) handling to render Groq response tokens smoothly without UI blocking.<br>
+          • <strong>Documentation & Verification:</strong> Wrote comprehensive system documentation and test suites to characterize parameter behavior.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Verification Notice (S&amp;AI Guidelines)</h2>
+      <p>
+        In accordance with the S&amp;AI Project Portfolio Rubric:
+      </p>
+      <ul>
+        <li><strong>Inference Only:</strong> This project functions strictly as an interactive inference and parameter console. It connects to Groq inference APIs and does <em>not</em> claim or attempt to train or fine-tune models.</li>
+        <li><strong>Verified Repository:</strong> Source code is publicly available and verifiable on GitHub at <a href="https://github.com/Avika2623/Chat-Bot" target="_blank" rel="noopener noreferrer">https://github.com/Avika2623/Chat-Bot</a>.</li>
+      </ul>
+
+      <a href="../index.html" class="btn-return">⬅ Return to Portfolio World</a>
+    </section>
+  </div>
+
+</body>
+</html>

@@ -211,6 +211,7 @@ const PORTFOLIO_DATA = {
           <h4>Project 2: AI Chatbot (APOGEE Orbital Console)</h4>
           <p><strong>Demo:</strong> <a href="https://chat-bot-avika2623.vercel.app/" target="_blank" rel="noopener noreferrer">https://chat-bot-avika2623.vercel.app/</a></p>
           <p><strong>Repository:</strong> <a href="https://github.com/Avika2623/Chat-Bot" target="_blank" rel="noopener noreferrer">https://github.com/Avika2623/Chat-Bot</a></p>
+          <p><strong>Documentation:</strong> <a href="docs/chatbot-documentation.pdf" target="_blank" rel="noopener noreferrer">AI Chatbot System Documentation (PDF)</a> &bull; <a href="docs/chatbot-documentation.html" target="_blank" rel="noopener noreferrer">Web Documentation (HTML)</a></p>
           <p>“This AI chat assistant is designed to make AI development easier for beginner developers to explore. Its adjustable settings help users understand how different model and prompt parameters affect the assistant’s behavior. I also prepared project documentation.”</p>
           <p><strong>Problem Addressed:</strong> Beginner developers struggle to understand how LLM inference and system prompt parameters alter model behavior.</p>
           <p><strong>How Solution Works:</strong> Provides an interactive chat console connecting to Groq inference APIs with real-time controls for model selection, temperature, token limit, top-p, streaming, and custom system prompts. <em>Does not train models.</em></p>
