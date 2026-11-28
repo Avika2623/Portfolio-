@@ -23,15 +23,17 @@ const PORTFOLIO_DATA = {
   
   locations: [
     {
-      id: "mine",
-      badge: "AREA 01",
-      title: "Innovation Mine",
-      subtitle: "SIH & Hacktoberfest",
+      id: "about",
+      badge: "PANEL 01",
+      title: "About Me",
+      subtitle: "First-Year B.Tech CSE (AI & ML) | NST, ADYPU Pune",
       themeClass: "loc-mine",
       pose: "mine",
-      reaction: "⛏ Ready to Mine!",
-      tags: ["Hackathons", "Open Source", "Problem Solving", "Team Collaboration"],
-      body: "I’ve participated in SIH and Hacktoberfest, exploring problem-solving through hackathons and open-source collaboration. I enjoy turning ideas into practical solutions, learning from a team, and improving through hands-on challenges.",
+      reaction: "⛏ Welcome to My Journey!",
+      tags: ["B.Tech CSE (AI & ML)", "Competitive Programming", "Problem Solving", "Engineering Aspirant"],
+      body: `
+        <p>Hi, I’m Avika Kalraiya, a first-year B.Tech student in Computer Science with an AI and Machine Learning specialization at Newton School of Technology, ADYPU Pune. My technical interests include competitive programming and problem-solving, where I practice breaking challenges into clear, logical steps. I’m building my foundations across programming languages through hands-on projects. My professional goal is to secure an internship at a well-established technology company and contribute to practical engineering work.</p>
+      `,
       props: [
         { type: "torch", x: "12%", y: "45px" },
         { type: "torch", x: "85%", y: "45px" },
@@ -40,15 +42,33 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "summit",
-      badge: "AREA 02",
-      title: "Quantum Summit",
-      subtitle: "Gold in World Quant",
+      id: "skills",
+      badge: "PANEL 02",
+      title: "Skills & Project Demos",
+      subtitle: "Technical Stack & Interactive Deployments",
       themeClass: "loc-summit",
       pose: "summit",
-      reaction: "⭐ Gold Achieved!",
-      tags: ["World Quant Gold", "Quantitative Analysis", "Analytical Thinking", "Logic"],
-      body: "I earned a gold in World Quant, reflecting my interest in quantitative problem-solving and analytical thinking. I enjoy working through complex challenges with patience, logic, and attention to detail.",
+      reaction: "⭐ Technical Foundations!",
+      tags: ["Python", "HTML", "CSS", "JavaScript", "Project Demos"],
+      body: `
+        <h3>Technical Skills</h3>
+        <ul>
+          <li><strong>Programming:</strong> Python</li>
+          <li><strong>Web development:</strong> HTML, CSS, JavaScript</li>
+        </ul>
+
+        <h3>Project Demos</h3>
+        <ul>
+          <li><strong>AI Chatbot:</strong> <a href="https://chat-bot-avika2623.vercel.app/" target="_blank" rel="noopener noreferrer">https://chat-bot-avika2623.vercel.app/</a></li>
+          <li><strong>LLM Pipeline Explorer:</strong> <a href="https://llm-pipeline-explorer-iota.vercel.app/" target="_blank" rel="noopener noreferrer">https://llm-pipeline-explorer-iota.vercel.app/</a></li>
+          <li><strong>Streetwear Shopping Website:</strong> <a href="https://streetwear-brand-sooty.vercel.app/" target="_blank" rel="noopener noreferrer">https://streetwear-brand-sooty.vercel.app/</a></li>
+        </ul>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Rubric Verification Notice</span>
+          <p><em>The links above are interactive project demos, not source-code repositories. Direct links mapping each skill to verified project source code repositories are reported and pending rubric code verification.</em></p>
+        </div>
+      `,
       props: [
         { type: "gold-pedestal", x: "78%", y: "10px" },
         { type: "beacon-beam", x: "20%", y: "0px" },
@@ -56,15 +76,88 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "trail",
-      badge: "AREA 03",
-      title: "Explorer’s Trail",
-      subtitle: "Trekking & Painting",
+      id: "contributions",
+      badge: "PANEL 03",
+      title: "S&AI Open-Source Contributions",
+      subtitle: "10 Verified Pull Requests on ohmyzsh",
       themeClass: "loc-trail",
       pose: "trail",
-      reaction: "🎨 Nature & Canvas!",
-      tags: ["Trekking", "Outdoors", "Painting", "Observation", "Color"],
-      body: "I enjoy trekking, discovering new places, and taking in the details of the outdoors. Painting gives me another way to observe, experiment with color, and express ideas creatively.",
+      reaction: "🌿 10 Verified PRs!",
+      tags: ["Open Source", "10 Verified PRs", "ohmyzsh", "Zsh & Python Tests"],
+      body: `
+        <p><strong>Repository:</strong> <a href="https://github.com/Avika2623/ohmyzsh" target="_blank" rel="noopener noreferrer">https://github.com/Avika2623/ohmyzsh</a></p>
+        <p>I completed ten pull requests for this repository. Below is each verified pull request authored by <strong>Avika2623</strong>, showing the Task ID, pull-request title and direct URL, concise description of code changes, and technical reason for the change:</p>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T001</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/82" target="_blank" rel="noopener noreferrer">PR #82: test(rails): preserve command arguments</a></h4>
+          <p><strong>Code Changes:</strong> Quoted forwarded arguments in <code>_rails_command</code> and <code>_rake_command</code>, added isolated zsh tests using temporary directories and command stubs, and added a Python check runner under <code>work/R14-T001/</code>.</p>
+          <p><strong>Technical Reason:</strong> Fixes argument splitting in the Rails and Rake wrappers so command arguments, including values with spaces, are passed through intact without word-splitting bugs.</p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T002</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/83" target="_blank" rel="noopener noreferrer">PR #83: test(nvm): cover lazy initialization contract</a></h4>
+          <p><strong>Code Changes:</strong> Added isolated zsh tests for the default <code>nvm</code> trigger with no arguments, optional custom lazy command forwarding, and documented that <code>lazy-cmd</code> has no effect without enabling lazy startup.</p>
+          <p><strong>Technical Reason:</strong> Validates the NVM plugin's lazy initialization contract and prevents regressions where lazy loading fails or drops arguments when invoking custom commands.</p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T003</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/84" target="_blank" rel="noopener noreferrer">PR #84: test(ant): cover ANT_ARGS state transitions</a></h4>
+          <p><strong>Code Changes:</strong> Modified the Ant plugin to set its colored logger argument only when <code>ANT_ARGS</code> is unset or empty, documented behavior in the plugin README, and added isolated Zsh state-transition checks.</p>
+          <p><strong>Technical Reason:</strong> Ensures user-provided non-empty <code>ANT_ARGS</code> are preserved rather than overwritten by the colored logger default.</p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T004</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/85" target="_blank" rel="noopener noreferrer">PR #85: test(man): preserve quoted wildcard arguments</a></h4>
+          <p><strong>Code Changes:</strong> Parsed <code>BUFFER</code> into shell words without splitting quoted spaces or expanding wildcards, escaped parsed arguments when inserting <code>man</code> into <code>BUFFER</code>, and added test fixtures.</p>
+          <p><strong>Technical Reason:</strong> Preserves quoted argument boundaries in the Man plugin's command-line widget so paths containing spaces and wildcard characters remain single literal arguments.</p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T005</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/86" target="_blank" rel="noopener noreferrer">PR #86: test(asdf): isolate initialization branches</a></h4>
+          <p><strong>Code Changes:</strong> Documented and tested <code>ASDF_DATA_DIR</code>, shims, completion, and missing-dependency behavior using deterministic Zsh fixtures with isolated temporary directories and environment variables.</p>
+          <p><strong>Technical Reason:</strong> Verifies both clean initialization and graceful error handling when dependencies are absent, preventing shell startup hangs or unhandled errors.</p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T006</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/87" target="_blank" rel="noopener noreferrer">PR #87: test(autopep8): characterize and group option aliases</a></h4>
+          <p><strong>Code Changes:</strong> Grouped matching short and long option spellings into single brace expansions across 22 normalized completion specs, verifying status code 37 propagates unchanged.</p>
+          <p><strong>Technical Reason:</strong> Reduces code duplication in autopep8 completion definitions while strictly preserving all completion specs and error status codes.</p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T007</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/88" target="_blank" rel="noopener noreferrer">PR #88: docs(zoxide): add tested project jump example</a></h4>
+          <p><strong>Code Changes:</strong> Added a complete project setup and jump walkthrough in <code>plugins/zoxide/README.md</code> and added isolated Zsh test cases covering space-separated paths and missing command handling.</p>
+          <p><strong>Technical Reason:</strong> Clarifies setup and syntax for paths with spaces while providing automated regression tests verifying shell directory navigation via <code>pwd</code>.</p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T008</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/89" target="_blank" rel="noopener noreferrer">PR #89: docs(brew): explain missing cask argument failure</a></h4>
+          <p><strong>Code Changes:</strong> Documented the failure caused by invoking the <code>bci</code> alias without a cask argument, showed <code>bci firefox</code> as corrected invocation in the README, and added focused Zsh fixtures verifying both branches.</p>
+          <p><strong>Technical Reason:</strong> Prevents developer confusion by documenting mandatory cask arguments and ensures the alias failure branch is covered by regression tests.</p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T009</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/90" target="_blank" rel="noopener noreferrer">PR #90: test(jfrog): add isolated completion check runner</a></h4>
+          <p><strong>Code Changes:</strong> Created a service-independent check runner that stubs <code>compdef</code>, <code>_describe</code>, <code>_files</code>, and the JFrog CLI, testing returned completions and fallback handling.</p>
+          <p><strong>Technical Reason:</strong> Enables repeatable, automated testing of JFrog completions without requiring an active external JFrog server or credentials.</p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <span class="dialog-badge-tag">Task ID: R14-T010</span>
+          <h4><a href="https://github.com/S-AI-Projects/ohmyzsh/pull/91" target="_blank" rel="noopener noreferrer">PR #91: test(tldr): reject broad prefix condition mutant</a></h4>
+          <p><strong>Code Changes:</strong> Added a Zsh regression fixture that tests the <code>tldr</code> widget prefix condition using <code>tldrish</code> (a valid command beginning with <code>tldr</code> but lacking a separating space), asserting mutant rejection.</p>
+          <p><strong>Technical Reason:</strong> Kills conditional mutants where <code>tldr*</code> is accepted instead of <code>tldr\\ *</code>, preventing false-positive widget activations on similarly named commands.</p>
+        </div>
+      `,
       props: [
         { type: "easel", x: "75%", y: "10px" },
         { type: "poppies", x: "22%", y: "12px" },
@@ -72,15 +165,67 @@ const PORTFOLIO_DATA = {
       ]
     },
     {
-      id: "tower",
-      badge: "AREA 04",
-      title: "Creative Tower",
-      subtitle: "AI & Prompt Engineering",
+      id: "projects",
+      badge: "PANEL 04",
+      title: "Projects, Education & Contact",
+      subtitle: "Projects, Academic Background, Honors & Contact",
       themeClass: "loc-tower",
       pose: "tower",
-      reaction: "✨ Prompting Essentials!",
-      tags: ["Prompting Essentials Certified", "AI Prompting", "Generative AI", "Prompt Engineering", "Creative Workflows"],
-      body: "I hold a certification in Prompting Essentials, sharpening my skills in writing structured prompts and using AI tools to explore ideas, support creative workflows, and solve challenges thoughtfully.",
+      reaction: "🏰 Full Portfolio Details!",
+      tags: ["ContriFit", "AI Chatbot", "WorldQuant Gold", "Hacktoberfest 7th", "Contact"],
+      body: `
+        <h3>Featured Projects</h3>
+
+        <div class="dialog-entry-card">
+          <h4>Project 1: ContriFit</h4>
+          <p><strong>Demo:</strong> <a href="https://contrifit.ai.studio/" target="_blank" rel="noopener noreferrer">https://contrifit.ai.studio/</a></p>
+          <p>“ContriFit is a team project designed to help beginners get started with open-source contributions. Users choose their skills, receive GitHub repository recommendations matched to those skills, and get an AI-generated report outlining relevant technologies and a starting contribution plan. I led the team and contributed to the creative direction, frontend, and project documentation.”</p>
+          <p><strong>Problem Addressed:</strong> New developers face steep barriers entering open source due to information overload and difficulty finding beginner-friendly issues matching their skills.</p>
+          <p><strong>How Solution Works:</strong> Users select comfort levels and languages; the platform searches and filters relevant GitHub issues, provides an explainable fit score, and generates a structured contribution checklist.</p>
+          <p><strong>Team Placement:</strong> 7th among 300 teams at the Hacktoberfest event at ADYPU Pune (team achievement).</p>
+          <p><strong>Individual Contribution:</strong> Led the team; directed creative design, frontend development, and prepared comprehensive project documentation.</p>
+          <p><strong>Verified Technologies:</strong> Interactive frontend UI with local browser session management and issue scoring. <em>(Source repository and documentation links are missing and still need to be supplied for the rubric).</em></p>
+        </div>
+
+        <div class="dialog-entry-card">
+          <h4>Project 2: AI Chatbot (APOGEE Orbital Console)</h4>
+          <p><strong>Demo:</strong> <a href="https://chat-bot-avika2623.vercel.app/" target="_blank" rel="noopener noreferrer">https://chat-bot-avika2623.vercel.app/</a></p>
+          <p><strong>Repository:</strong> <a href="https://github.com/Avika2623/Chat-Bot" target="_blank" rel="noopener noreferrer">https://github.com/Avika2623/Chat-Bot</a></p>
+          <p>“This AI chat assistant is designed to make AI development easier for beginner developers to explore. Its adjustable settings help users understand how different model and prompt parameters affect the assistant’s behavior. I also prepared project documentation.”</p>
+          <p><strong>Problem Addressed:</strong> Beginner developers struggle to understand how LLM inference and system prompt parameters alter model behavior.</p>
+          <p><strong>How Solution Works:</strong> Provides an interactive chat console connecting to Groq inference APIs with real-time controls for model selection, temperature, token limit, top-p, streaming, and custom system prompts. <em>Does not train models.</em></p>
+          <p><strong>Verified Technologies:</strong> React, TypeScript, Vite, Tailwind CSS, Express API proxy, Groq SDK (Llama 3.3 70B Versatile).</p>
+          <p><strong>Individual Contribution:</strong> Developed the assistant interface and interactive settings, and prepared project documentation.</p>
+        </div>
+
+        <h3>Education</h3>
+        <ul>
+          <li><strong>DPS, Bhopal:</strong> Completed Class 10 and Class 12 in 2026.</li>
+          <li><strong>Newton School of Technology, ADYPU Pune:</strong> First-year B.Tech student in Computer Science with an AI and Machine Learning specialization.</li>
+          <li><strong>Expected Graduation Year:</strong> <em>[Pending student input; not in supplied materials]</em></li>
+        </ul>
+
+        <h3>Achievements</h3>
+        <ul>
+          <li>
+            <strong>WorldQuant Challenge — Gold Level:</strong> Earned a Gold in WorldQuant through work involving trading algorithms.
+            <br>
+            <em>Official Certificate:</em> <a href="certificates/worldquant-gold-certificate.pdf" target="_blank" rel="noopener noreferrer">Certificate of Accomplishment — GOLD LEVEL in the WorldQuant Challenge® (PDF)</a>
+          </li>
+          <li>
+            <strong>Hacktoberfest at ADYPU Pune — 7th among 300 teams:</strong> My team placed 7th among 300 teams at the Hacktoberfest event at ADYPU Pune.
+            <br>
+            <em>Official Certificate:</em> <a href="certificates/hacktoberfest-2026-certificate.pdf" target="_blank" rel="noopener noreferrer">Certificate of Achievement — Participant (Hacktoberfest 26, Oct 24-25, 2026) (PDF)</a>
+          </li>
+        </ul>
+
+        <h3>Contact</h3>
+        <ul>
+          <li><strong>Email:</strong> <a href="mailto:avika.k2008@gmail.com">avika.k2008@gmail.com</a></li>
+          <li><strong>GitHub:</strong> <a href="https://github.com/Avika2623" target="_blank" rel="noopener noreferrer">https://github.com/Avika2623</a></li>
+          <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/avika-kalraiya-2ba337432" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/avika-kalraiya-2ba337432</a></li>
+        </ul>
+      `,
       props: [
         { type: "magic-lantern", x: "82%", y: "60px" },
         { type: "ai-spark-crystal", x: "25%", y: "55px" },
@@ -92,14 +237,14 @@ const PORTFOLIO_DATA = {
 
   splashTexts: [
     "Welcome, Avika Kalraiya!",
-    "Prompting Essentials Certified!",
-    "Gold at Quantum Summit!",
-    "SIH & Hacktoberfest Spirit!",
-    "Trekking trails & canvas colors!",
-    "Prompt Engineering Excellence!",
+    "B.Tech CSE (AI & ML) @ NST!",
+    "10 Verified Open-Source PRs!",
+    "WorldQuant Brain Gold Level!",
+    "Hacktoberfest Top 7 Team!",
+    "ContriFit & AI Chatbot Demos!",
+    "Competitive Programming & Python!",
     "Jump with Spacebar!",
-    "Alex-approved adventure!",
-    "100% Pure HTML, CSS & JS!"
+    "Interactive Portfolio Edition!"
   ]
 };
 
@@ -733,7 +878,11 @@ function updateLocationUI(locationIndex, direction = 0) {
   if (badgeEl) badgeEl.textContent = loc.badge;
   if (titleEl) titleEl.textContent = loc.title;
   if (subtitleEl) subtitleEl.textContent = loc.subtitle;
-  if (bodyEl) bodyEl.textContent = loc.body;
+  if (bodyEl) {
+    bodyEl.innerHTML = loc.body;
+    const scrollContainer = document.querySelector(".dialog-content-body");
+    if (scrollContainer) scrollContainer.scrollTop = 0;
+  }
 
   if (tagsEl) {
     tagsEl.innerHTML = "";
