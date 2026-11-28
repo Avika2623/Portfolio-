@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ContriFit — Official Project Documentation</title>
+  <style>
+    :root {
+      --bg-primary: #0d1117;
+      --bg-secondary: #161b22;
+      --bg-card: #21262d;
+      --border-color: #30363d;
+      --text-main: #c9d1d9;
+      --text-heading: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent-green: #2ea043;
+      --accent-neon: #3fb950;
+      --accent-blue: #58a6ff;
+      --accent-gold: #d29922;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.65;
+      padding: 40px 20px;
+    }
+
+    .doc-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 48px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+    }
+
+    header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 28px;
+      margin-bottom: 36px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      background: rgba(46, 160, 67, 0.15);
+      border: 1px solid var(--accent-green);
+      color: var(--accent-neon);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: var(--text-heading);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .tagline {
+      font-size: 1.15rem;
+      color: var(--accent-blue);
+      margin-bottom: 18px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      background: var(--bg-primary);
+      padding: 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      font-size: 0.9rem;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .meta-item a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .meta-item a:hover {
+      text-decoration: underline;
+    }
+
+    h2 {
+      font-size: 1.45rem;
+      color: var(--text-heading);
+      margin: 36px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--text-heading);
+      margin: 24px 0 10px;
+    }
+
+    p {
+      margin-bottom: 16px;
+    }
+
+    ul, ol {
+      margin: 12px 0 20px 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+      color: #ff7b72;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-primary);
+      color: var(--text-heading);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .screenshot-figure {
+      margin: 24px 0;
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .screenshot-figure img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .screenshot-caption {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-card);
+    }
+
+    .highlight-card {
+      background: var(--bg-card);
+      border-left: 4px solid var(--accent-neon);
+      padding: 16px 20px;
+      border-radius: 0 6px 6px 0;
+      margin: 20px 0;
+    }
+
+    .highlight-card strong {
+      color: var(--text-heading);
+    }
+
+    .btn-return {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 10px 20px;
+      background: var(--accent-green);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        color: #111;
+        padding: 0;
+      }
+      .doc-container {
+        border: none;
+        padding: 0;
+        box-shadow: none;
+        background: #fff;
+      }
+      h1, h2, h3, .tagline {
+        color: #000;
+      }
+      .meta-grid, .screenshot-figure, .highlight-card {
+        background: #f9f9f9;
+        border-color: #ddd;
+        color: #222;
+      }
+      th {
+        background: #eee;
+        color: #000;
+      }
+      code {
+        background: #eee;
+        color: #000;
+      }
+      .btn-return {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="doc-container">
+    <header>
+      <span class="badge-pill">🏆 Hacktoberfest 2026 — 7th Place out of 300 Teams</span>
+      <h1>ContriFit — System Documentation & Architecture</h1>
+      <p class="tagline">Open-Source, But Make It Fit. AI-Assisted Contribution Discovery Platform</p>
+      
+      <div class="meta-grid">
+        <div class="meta-item">
+          <strong>Team Lead</strong>
+          <span>Avika Kalraiya</span>
+        </div>
+        <div class="meta-item">
+          <strong>Institution</strong>
+          <span>NST, ADYPU Pune</span>
+        </div>
+        <div class="meta-item">
+          <strong>Live Demo</strong>
+          <a href="https://contrifit.ai.studio/" target="_blank" rel="noopener noreferrer">contrifit.ai.studio</a>
+        </div>
+        <div class="meta-item">
+          <strong>GitHub Repository</strong>
+          <a href="https://github.com/whoPeterpan/ContriFit" target="_blank" rel="noopener noreferrer">whoPeterpan/ContriFit</a>
+        </div>
+        <div class="meta-item">
+          <strong>Slide Deck</strong>
+          <a href="https://docs.google.com/presentation/d/1GH1p8EY-AyV15zC9_U6jPn5h2Bp0PWdtMz0MoaIsAVQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Presentation Slides</a>
+        </div>
+        <div class="meta-item">
+          <strong>Project Status</strong>
+          <span>Verified Hackathon Release</span>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. Executive Summary & Problem Addressed</h2>
+      <p>
+        Contributing to open source is an invaluable rite of passage for software engineers. However, newcomers face persistent hurdles:
+      </p>
+      <ul>
+        <li><strong>Discovery Paralysis:</strong> Navigating thousands of repositories on GitHub without a clear mechanism to filter by exact skill level.</li>
+        <li><strong>Deceptive Difficulty:</strong> Issues labeled <code>good first issue</code> often have undocumented prerequisites or hidden complexities.</li>
+        <li><strong>Stale or Claimed Work:</strong> New contributors frequently spend hours writing pull requests for issues that are abandoned, already solved, or unmonitored by maintainers.</li>
+      </ul>
+      <p>
+        <strong>ContriFit</strong> bridges the gap between <em>“I want to contribute”</em> and <em>“I know which issue to investigate next”</em> through personalized skill matching, transparent readiness scoring, and AI-assisted contribution checklists.
+      </p>
+
+      <div class="screenshot-figure">
+        <img src="assets/landing-hero.jpg" alt="ContriFit Landing Page UI">
+        <div class="screenshot-caption">Figure 1.1: ContriFit landing page showcasing the three core product pillars.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Core Three-Pillar Architecture</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Pillar</th>
+              <th>Description</th>
+              <th>Implementation Mechanism</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1. Matched to Your Skills</strong></td>
+              <td>Tailored issue discovery based on languages, frameworks, and developer experience.</td>
+              <td>Deterministic fit scoring (0–100) comparing user skill vectors against GitHub issue tags and descriptions.</td>
+            </tr>
+            <tr>
+              <td><strong>2. Understand Before You Start</strong></td>
+              <td>Honest signals about issue readiness, prerequisites, and freshness.</td>
+              <td>Metadata extraction for activity, maintainer engagement, assignment status, and skill-gap warnings.</td>
+            </tr>
+            <tr>
+              <td><strong>3. Clear Path to Contribute</strong></td>
+              <td>Step-by-step checklist guiding the contributor from setup to PR submission.</td>
+              <td>Gemma 4 AI integration providing natural language context and practical next steps.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="screenshot-figure">
+        <img src="assets/how-it-works.png" alt="ContriFit How It Works">
+        <div class="screenshot-caption">Figure 1.2: The ContriFit user workflow: Profile Setup → Live Issue Discovery → Actionable Contribution Plan.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>3. User Profile & Local Storage Guest Mode</h2>
+      <p>
+        To eliminate friction for first-time visitors, ContriFit implements a browser-local <strong>Guest Session</strong> mode that persists developer competencies in local storage without requiring account registration.
+      </p>
+      <ul>
+        <li><strong>GitHub Username Sync:</strong> Instant fetching of public repository languages and contribution history.</li>
+        <li><strong>Supported Languages:</strong> TypeScript, JavaScript, Python, Rust, Go, Java, C#, C++.</li>
+        <li><strong>Frameworks & Tools:</strong> React, Next.js, Vue, Svelte, Node.js, Express, Django, FastAPI.</li>
+        <li><strong>Experience Level:</strong> Beginner, Intermediate, Advanced.</li>
+      </ul>
+
+      <div class="screenshot-figure">
+        <img src="assets/profile-setup.jpg" alt="ContriFit Profile Setup Screen">
+        <div class="screenshot-caption">Figure 1.3: ContriFit profile customization interface with skill tag selection and GitHub sync.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Live Issue Discovery & Explainable Scoring</h2>
+      <p>
+        The discovery engine connects directly to the <strong>GitHub REST API</strong> to retrieve open, actionable issues in real time. Each recommendation features:
+      </p>
+      <ul>
+        <li><strong>Explainable Fit Score:</strong> A visual rating (e.g., <code>96% Strong Match</code>) highlighting matched languages, difficulty levels, and clear scope.</li>
+        <li><strong>Transparent Rationales:</strong> The “Why It Matches” panel explains why the difficulty is appropriate and confirms that the issue description contains explicit criteria.</li>
+        <li><strong>Direct Issue Actions:</strong> One-click navigation to “View Contribution Plan”, “Explain with AI”, or open the original GitHub repository.</li>
+      </ul>
+
+      <div class="screenshot-figure">
+        <img src="assets/issue-discovery.jpg" alt="ContriFit Issue Discovery Feed">
+        <div class="screenshot-caption">Figure 1.4: ContriFit Issue feed displaying real-time ranking, fit badges, and explainability breakdown.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Technical Stack</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Technologies</th>
+              <th>Purpose & Function</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Frontend Framework</strong></td>
+              <td>React 19, React Router v8, Vite 8</td>
+              <td>Modern SPA architecture with high-speed compilation and client-side routing.</td>
+            </tr>
+            <tr>
+              <td><strong>Language & Types</strong></td>
+              <td>TypeScript 5.7</td>
+              <td>Strict type safety across GitHub API payloads, user profiles, and score calculations.</td>
+            </tr>
+            <tr>
+              <td><strong>UI & Styling</strong></td>
+              <td>Tailwind CSS v4, Lucide React</td>
+              <td>Responsive dark-themed layout matching the Figma design system.</td>
+            </tr>
+            <tr>
+              <td><strong>Backend / API Proxy</strong></td>
+              <td>Supabase Edge Functions (Deno / TS)</td>
+              <td>Secure API key isolation, GitHub request proxying, and caching.</td>
+            </tr>
+            <tr>
+              <td><strong>Data Provider</strong></td>
+              <td>GitHub REST API</td>
+              <td>Live issue fetching, repository metadata, labels, and activity timestamps.</td>
+            </tr>
+            <tr>
+              <td><strong>AI Reasoning</strong></td>
+              <td>Gemma 4 Provider</td>
+              <td>Contextual explanations and step-by-step contribution checklists.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>6. Individual Contribution & Leadership</h2>
+      <div class="highlight-card">
+        <strong>Avika Kalraiya — Team Lead, Creative Direction & Frontend Development:</strong>
+        <p style="margin-top: 8px;">
+          • <strong>Team Leadership:</strong> Spearheaded the team through the entire Hacktoberfest hackathon at ADYPU Pune, coordinating milestones and deliverables to achieve <strong>7th place among 300 competing teams</strong>.<br>
+          • <strong>Creative & UI Direction:</strong> Architected the product design, visual hierarchy, and component layouts based on modern developer ergonomics.<br>
+          • <strong>Frontend Implementation:</strong> Built the profile setup interface, responsive issue feed cards, and fit-score meters in React and Tailwind CSS.<br>
+          • <strong>Technical Documentation & Presentation:</strong> Authored the product specifications, architecture documentation, and presentation slide deck.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>7. References & Project Artifacts</h2>
+      <ul>
+        <li><strong>Live Demo:</strong> <a href="https://contrifit.ai.studio/" target="_blank" rel="noopener noreferrer">https://contrifit.ai.studio/</a></li>
+        <li><strong>GitHub Repository:</strong> <a href="https://github.com/whoPeterpan/ContriFit" target="_blank" rel="noopener noreferrer">https://github.com/whoPeterpan/ContriFit</a></li>
+        <li><strong>Presentation Deck:</strong> <a href="https://docs.google.com/presentation/d/1GH1p8EY-AyV15zC9_U6jPn5h2Bp0PWdtMz0MoaIsAVQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer">ContriFit Presentation Slides</a></li>
+      </ul>
+
+      <a href="../index.html" class="btn-return">⬅ Return to Portfolio World</a>
+    </section>
+  </div>
+
+</body>
+</html>

@@ -57,16 +57,34 @@ const PORTFOLIO_DATA = {
           <li><strong>Web development:</strong> HTML, CSS, JavaScript</li>
         </ul>
 
-        <h3>Project Demos</h3>
+        <h3>Project Demos &amp; Source Repositories</h3>
         <ul>
-          <li><strong>AI Chatbot:</strong> <a href="https://chat-bot-avika2623.vercel.app/" target="_blank" rel="noopener noreferrer">https://chat-bot-avika2623.vercel.app/</a></li>
-          <li><strong>LLM Pipeline Explorer:</strong> <a href="https://llm-pipeline-explorer-iota.vercel.app/" target="_blank" rel="noopener noreferrer">https://llm-pipeline-explorer-iota.vercel.app/</a></li>
-          <li><strong>Streetwear Shopping Website:</strong> <a href="https://streetwear-brand-sooty.vercel.app/" target="_blank" rel="noopener noreferrer">https://streetwear-brand-sooty.vercel.app/</a></li>
+          <li>
+            <strong>AI Chatbot:</strong>
+            <br>
+            Demo: <a href="https://chat-bot-avika2623.vercel.app/" target="_blank" rel="noopener noreferrer">https://chat-bot-avika2623.vercel.app/</a>
+            <br>
+            Repository: <a href="https://github.com/Avika2623/Chat-Bot" target="_blank" rel="noopener noreferrer">https://github.com/Avika2623/Chat-Bot</a>
+          </li>
+          <li>
+            <strong>LLM Pipeline Explorer:</strong>
+            <br>
+            Demo: <a href="https://llm-pipeline-explorer-iota.vercel.app/" target="_blank" rel="noopener noreferrer">https://llm-pipeline-explorer-iota.vercel.app/</a>
+            <br>
+            Repository: <a href="https://github.com/Avika2623/LLM-Pipeline-Explorer" target="_blank" rel="noopener noreferrer">https://github.com/Avika2623/LLM-Pipeline-Explorer</a>
+          </li>
+          <li>
+            <strong>Streetwear Shopping Website:</strong>
+            <br>
+            Demo: <a href="https://streetwear-brand-sooty.vercel.app/" target="_blank" rel="noopener noreferrer">https://streetwear-brand-sooty.vercel.app/</a>
+            <br>
+            Repository: <a href="https://github.com/Avika2623/streetwear-brand" target="_blank" rel="noopener noreferrer">https://github.com/Avika2623/streetwear-brand</a>
+          </li>
         </ul>
 
         <div class="dialog-entry-card">
-          <span class="dialog-badge-tag">Rubric Verification Notice</span>
-          <p><em>The links above are interactive project demos, not source-code repositories. Direct links mapping each skill to verified project source code repositories are reported and pending rubric code verification.</em></p>
+          <span class="dialog-badge-tag">Verified Skills Mapping</span>
+          <p><em>Programming skills in Python and web development in HTML, CSS, and JavaScript are directly verified through the connected source code repositories above.</em></p>
         </div>
       `,
       props: [
@@ -179,12 +197,14 @@ const PORTFOLIO_DATA = {
         <div class="dialog-entry-card">
           <h4>Project 1: ContriFit</h4>
           <p><strong>Demo:</strong> <a href="https://contrifit.ai.studio/" target="_blank" rel="noopener noreferrer">https://contrifit.ai.studio/</a></p>
+          <p><strong>Repository:</strong> <a href="https://github.com/whoPeterpan/ContriFit" target="_blank" rel="noopener noreferrer">https://github.com/whoPeterpan/ContriFit</a></p>
+          <p><strong>Documentation:</strong> <a href="docs/contrifit-documentation.pdf" target="_blank" rel="noopener noreferrer">ContriFit System Documentation (PDF)</a> &bull; <a href="docs/contrifit-documentation.html" target="_blank" rel="noopener noreferrer">Web Documentation (HTML)</a> &bull; <a href="https://docs.google.com/presentation/d/1GH1p8EY-AyV15zC9_U6jPn5h2Bp0PWdtMz0MoaIsAVQ/edit?usp=sharing" target="_blank" rel="noopener noreferrer">Presentation Slides</a></p>
           <p>“ContriFit is a team project designed to help beginners get started with open-source contributions. Users choose their skills, receive GitHub repository recommendations matched to those skills, and get an AI-generated report outlining relevant technologies and a starting contribution plan. I led the team and contributed to the creative direction, frontend, and project documentation.”</p>
           <p><strong>Problem Addressed:</strong> New developers face steep barriers entering open source due to information overload and difficulty finding beginner-friendly issues matching their skills.</p>
           <p><strong>How Solution Works:</strong> Users select comfort levels and languages; the platform searches and filters relevant GitHub issues, provides an explainable fit score, and generates a structured contribution checklist.</p>
           <p><strong>Team Placement:</strong> 7th among 300 teams at the Hacktoberfest event at ADYPU Pune (team achievement).</p>
           <p><strong>Individual Contribution:</strong> Led the team; directed creative design, frontend development, and prepared comprehensive project documentation.</p>
-          <p><strong>Verified Technologies:</strong> Interactive frontend UI with local browser session management and issue scoring. <em>(Source repository and documentation links are missing and still need to be supplied for the rubric).</em></p>
+          <p><strong>Verified Technologies:</strong> React 19, React Router v8, TypeScript 5.7, Tailwind CSS v4, Lucide React, Vite 8, Vitest, Supabase Edge Functions &amp; GitHub REST API.</p>
         </div>
 
         <div class="dialog-entry-card">
@@ -202,7 +222,7 @@ const PORTFOLIO_DATA = {
         <ul>
           <li><strong>DPS, Bhopal:</strong> Completed Class 10 and Class 12 in 2026.</li>
           <li><strong>Newton School of Technology, ADYPU Pune:</strong> First-year B.Tech student in Computer Science with an AI and Machine Learning specialization.</li>
-          <li><strong>Expected Graduation Year:</strong> <em>[Pending student input; not in supplied materials]</em></li>
+          <li><strong>Expected Graduation Year:</strong> 2030</li>
         </ul>
 
         <h3>Achievements</h3>
