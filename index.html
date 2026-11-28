@@ -169,7 +169,7 @@
       <!-- Center: Location Progress & Hearts -->
       <div class="hud-center">
         <div class="hud-location-counter" id="location-progress" aria-live="polite">
-          Location <span id="current-loc-num">1</span> of <span id="total-loc-num">4</span>
+          Location <span id="current-loc-num">1</span> of <span id="total-loc-num">5</span>
         </div>
         <div class="hearts-bar" aria-label="Health 10 of 10 hearts" title="10/10 Hearts">
           <span class="pixel-heart">❤</span>
@@ -298,7 +298,7 @@
             <button id="btn-panel-prev" class="game-btn game-btn-compact" type="button" onclick="goToLocation(state.currentLocationIndex - 1)">
               ◀ Previous
             </button>
-            <span class="panel-step-indicator" id="panel-step-indicator">1 / 4</span>
+            <span class="panel-step-indicator" id="panel-step-indicator">1 / 5</span>
             <button id="btn-panel-next" class="game-btn game-btn-compact" type="button" onclick="goToLocation(state.currentLocationIndex + 1)">
               Next ▶
             </button>
@@ -325,10 +325,15 @@
             <span class="slot-icon">🛠</span>
             <span class="slot-name">PRs</span>
           </button>
-          <button class="hotbar-slot" role="tab" aria-selected="false" data-loc-index="3" onclick="goToLocation(3, true)" title="Slot 4: Projects &amp; Info [4]">
+          <button class="hotbar-slot" role="tab" aria-selected="false" data-loc-index="3" onclick="goToLocation(3, true)" title="Slot 4: Projects [4]">
             <span class="slot-num">4</span>
             <span class="slot-icon">🚀</span>
             <span class="slot-name">Projects</span>
+          </button>
+          <button class="hotbar-slot" role="tab" aria-selected="false" data-loc-index="4" onclick="goToLocation(4, true)" title="Slot 5: Education &amp; Contact [5]">
+            <span class="slot-num">5</span>
+            <span class="slot-icon">📜</span>
+            <span class="slot-name">Edu</span>
           </button>
         </div>
       </nav>
@@ -387,7 +392,7 @@
           <ul class="guide-list">
             <li><kbd>←</kbd> / <kbd>A</kbd> : Previous Location</li>
             <li><kbd>→</kbd> / <kbd>D</kbd> : Next Location</li>
-            <li><kbd>1</kbd> - <kbd>4</kbd> : Jump Directly to Location</li>
+            <li><kbd>1</kbd> - <kbd>5</kbd> : Jump Directly to Location</li>
             <li><kbd>Space</kbd> : Character Jump / Celebrate</li>
             <li><kbd>Esc</kbd> : Return to Main Menu / Close Dialog</li>
             <li><kbd>M</kbd> : Toggle Sound Mute</li>
@@ -474,7 +479,7 @@
           <div class="highlight-card">
             <span class="hl-icon">💻</span>
             <strong>Panel 2: Skills &amp; Demos</strong>
-            <p>Python, HTML, CSS, JavaScript, and live deployed project demos.</p>
+            <p>Python, HTML, CSS, JavaScript, and live deployed project demos with connected code repos.</p>
           </div>
           <div class="highlight-card">
             <span class="hl-icon">🛠</span>
@@ -483,8 +488,13 @@
           </div>
           <div class="highlight-card">
             <span class="hl-icon">🚀</span>
-            <strong>Panel 4: Projects &amp; Contact</strong>
-            <p>ContriFit, AI Chatbot console, verified education, achievements, and direct links.</p>
+            <strong>Panel 4: Featured Projects</strong>
+            <p>ContriFit &amp; AI Chatbot consoles, architecture, demos, repos, and documentation.</p>
+          </div>
+          <div class="highlight-card">
+            <span class="hl-icon">📜</span>
+            <strong>Panel 5: Education, Honors &amp; Contact</strong>
+            <p>Academic degrees, WorldQuant Gold, Hacktoberfest 7th place, and direct contact channels.</p>
           </div>
         </div>
 

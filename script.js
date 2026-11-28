@@ -185,12 +185,12 @@ const PORTFOLIO_DATA = {
     {
       id: "projects",
       badge: "PANEL 04",
-      title: "Projects, Education & Contact",
-      subtitle: "Projects, Academic Background, Honors & Contact",
+      title: "Featured Projects",
+      subtitle: "Open Source AI & Web Applications",
       themeClass: "loc-tower",
       pose: "tower",
-      reaction: "🏰 Full Portfolio Details!",
-      tags: ["ContriFit", "AI Chatbot", "WorldQuant Gold", "Hacktoberfest 7th", "Contact"],
+      reaction: "🏰 Featured Projects!",
+      tags: ["ContriFit", "AI Chatbot", "Open Source", "React 19", "TypeScript", "Groq AI"],
       body: `
         <h3>Featured Projects</h3>
 
@@ -217,7 +217,24 @@ const PORTFOLIO_DATA = {
           <p><strong>Verified Technologies:</strong> React, TypeScript, Vite, Tailwind CSS, Express API proxy, Groq SDK (Llama 3.3 70B Versatile).</p>
           <p><strong>Individual Contribution:</strong> Developed the assistant interface and interactive settings, and prepared project documentation.</p>
         </div>
-
+      `,
+      props: [
+        { type: "magic-lantern", x: "82%", y: "60px" },
+        { type: "ai-spark-crystal", x: "25%", y: "55px" },
+        { type: "floating-sparkle", x: "72%", y: "85px" },
+        { type: "spellbook-shelf", x: "18%", y: "15px" }
+      ]
+    },
+    {
+      id: "education-contact",
+      badge: "PANEL 05",
+      title: "Education, Achievements & Contact",
+      subtitle: "Academic Background, Honors & Contact",
+      themeClass: "loc-citadel",
+      pose: "academy",
+      reaction: "📜 Academic Background & Contact!",
+      tags: ["DPS Bhopal", "NST ADYPU Pune", "WorldQuant Gold", "Hacktoberfest 7th", "Contact"],
+      body: `
         <h3>Education</h3>
         <ul>
           <li><strong>DPS, Bhopal:</strong> Completed Class 10 and Class 12 in 2026.</li>
@@ -247,10 +264,10 @@ const PORTFOLIO_DATA = {
         </ul>
       `,
       props: [
-        { type: "magic-lantern", x: "82%", y: "60px" },
-        { type: "ai-spark-crystal", x: "25%", y: "55px" },
-        { type: "floating-sparkle", x: "72%", y: "85px" },
-        { type: "spellbook-shelf", x: "18%", y: "15px" }
+        { type: "gold-pedestal", x: "80%", y: "10px" },
+        { type: "torch", x: "16%", y: "45px" },
+        { type: "beacon-beam", x: "28%", y: "0px" },
+        { type: "spellbook-shelf", x: "70%", y: "15px" }
       ]
     }
   ],
@@ -370,7 +387,8 @@ class RetroSoundFX {
       [261.63, 329.63, 392.00], // C Major (Mine)
       [329.63, 415.30, 493.88], // E Major (Summit)
       [293.66, 369.99, 440.00], // D Major (Trail)
-      [349.23, 440.00, 523.25]  // F Major (Tower)
+      [349.23, 440.00, 523.25], // F Major (Tower)
+      [392.00, 493.88, 587.33]  // G Major (Citadel / Education & Contact)
     ];
 
     const notes = chords[index % chords.length];
@@ -590,6 +608,46 @@ function generateCharacterSVG(pose = "mine") {
       <g transform="translate(118, 92)">
         <polygon points="7,0 14,7 7,14 0,7" fill="#ea80fc" stroke="#e040fb" stroke-width="1" />
         <circle cx="7" cy="7" r="2" fill="#ffffff" />
+      </g>
+    `;
+  } else if (pose === "academy") {
+    // Academic & Achievement pose: holding an honor scroll in one hand and a golden medal in the other
+    armContent = `
+      <!-- Left arm holding scroll -->
+      <rect x="22" y="66" width="16" height="46" fill="${c.skinBase}" />
+      <rect x="22" y="74" width="16" height="18" fill="${c.tunicBase}" />
+
+      <!-- Right arm raised proudly holding golden medal -->
+      <rect x="102" y="58" width="16" height="48" fill="${c.skinBase}" />
+      <rect x="102" y="74" width="16" height="18" fill="${c.tunicBase}" />
+    `;
+
+    auraContent = `
+      <radialGradient id="acadAura" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fff9c4" stop-opacity="0.6" />
+        <stop offset="60%" stop-color="#ffd54f" stop-opacity="0.3" />
+        <stop offset="100%" stop-color="#ffb300" stop-opacity="0" />
+      </radialGradient>
+      <circle cx="70" cy="40" r="34" fill="url(#acadAura)" />
+    `;
+
+    heldItemContent = `
+      <!-- Certificate Scroll in Left Hand -->
+      <g transform="translate(14, 82) rotate(-10)">
+        <rect x="0" y="0" width="18" height="26" fill="#fff9c4" stroke="#d7ccc8" stroke-width="1.5" />
+        <line x1="3" y1="6" x2="15" y2="6" stroke="#8d6e63" stroke-width="1.5" />
+        <line x1="3" y1="12" x2="15" y2="12" stroke="#8d6e63" stroke-width="1.5" />
+        <line x1="3" y1="18" x2="11" y2="18" stroke="#8d6e63" stroke-width="1.5" />
+        <!-- Red ribbon seal -->
+        <circle cx="9" cy="22" r="3" fill="#e53935" />
+      </g>
+
+      <!-- Golden Medallion in Right Hand -->
+      <g transform="translate(108, 38)">
+        <circle cx="10" cy="10" r="10" fill="#ffeb3b" stroke="#f57f17" stroke-width="2" />
+        <circle cx="10" cy="10" r="6" fill="#fff9c4" />
+        <line x1="10" y1="-2" x2="10" y2="2" stroke="#e53935" stroke-width="2" />
+        <line x1="5" y1="0" x2="15" y2="0" stroke="#e53935" stroke-width="2" />
       </g>
     `;
   }
@@ -1360,6 +1418,7 @@ function initEventListeners() {
       case "2":
       case "3":
       case "4":
+      case "5":
         e.preventDefault();
         goToLocation(parseInt(e.key, 10) - 1, true);
         break;
